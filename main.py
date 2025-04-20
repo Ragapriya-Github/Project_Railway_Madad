@@ -18,28 +18,32 @@ class ComplaintRequest(BaseModel):
 
 # Simulated API function (Replace with actual API call)
 def classify_complaint_with_api(complaint):
-    # Simulating an API failure due to quota limits (randomly)
-    if random.random() < 0.3:  # 30% chance of failure
+    # Simulate random API failure
+    if random.random() < 0.3:
         return "API_ERROR"
 
-    # Simulated API-based classification with new categories
-    api_responses = {
-        "garbage in the train": "Cleanliness",
-        "compartment is dirty": "Cleanliness",
-        "toilets are not clean": "Cleanliness",
-        "seat is broken": "Damage",
-        "window is broken": "Damage",
-        "facility is not working": "Damage",
-        "staff was rude": "Staff",
-        "poor service by staff": "Staff",
-        "ac not working": "Electrical Issues",
-        "fan is broken": "Electrical Issues",
-        "charging point not working": "Electrical Issues",
-        "light is not working": "Electrical Issues"
+    keywords = {
+        "garbage": "Cleanliness",
+        "dirty": "Cleanliness",
+        "toilet": "Cleanliness",
+        "broken": "Damage",
+        "seat": "Damage",
+        "window": "Damage",
+        "facility": "Damage",
+        "staff": "Staff",
+        "rude": "Staff",
+        "service": "Staff",
+        "ac": "Electrical Issues",
+        "fan": "Electrical Issues",
+        "charging": "Electrical Issues",
+        "light": "Electrical Issues"
     }
 
-    return api_responses.get(complaint.lower(), "Others")
+    for key, category in keywords.items():
+        if key in complaint.lower():
+            return category
 
+    return "Others"
 # Fallback rule-based classification
 def classify_complaint_fallback(complaint):
     keywords = {
