@@ -75,5 +75,5 @@ def classify_complaint(request: ComplaintRequest):
 def read_root():
     return {"message": "Welcome to the Railway Complaint Classification API"}
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
+    port = int(os.environ.get("PORT", 8080))
     uvicorn.run(app, host="0.0.0.0", port=port)
