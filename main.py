@@ -39,11 +39,14 @@ def classify_complaint_with_api(complaint):
         "light": "Electrical Issues"
     }
 
+    matched_categories = set()
+
     for key, category in keywords.items():
         if key in complaint.lower():
-            return category
+            matched_categories.add(category)
 
-    return "Others"
+    return list(matched_categories) if matched_categories else ["Others"]
+    
 # Fallback rule-based classification
 def classify_complaint_fallback(complaint):
     keywords = {
@@ -63,12 +66,14 @@ def classify_complaint_fallback(complaint):
         "light": "Electrical Issues"
     }
 
+    matched_categories = set()
+
     for key, category in keywords.items():
         if key in complaint.lower():
-            return category
+            matched_categories.add(category)
 
-    return "Others"
-
+    return list(matched_categories) if matched_categories else ["Others"]
+    
 # Define route for classification
 @app.post("/classify_complaint/")
 def classify_complaint(request: ComplaintRequest):
