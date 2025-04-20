@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import google.generativeai as genai
 import os
+import uvicorn
 
 # Set up the Gemini API
 genai.configure(api_key="AIzaSyDPaTFb1E9-3XFKdFEiZxIXw1ojsnDLPjw")
