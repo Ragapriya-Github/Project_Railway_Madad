@@ -22,38 +22,49 @@ def classify_complaint_with_api(complaint):
     if random.random() < 0.3:  # 30% chance of failure
         return "API_ERROR"
 
-    # Simulating API-based classification
-    api_responses = {
-        "train is late": "Service Delay",
-        "train is not on time": "Punctuality",
-        "water leakage": "Infrastructure",
-        "fight in train": "Safety",
-        "seats are torn": "Maintenance",
-        "staff was rude": "Staff Behavior"
-    }
+    # Simulating API-based classification with new categories
+api_responses = {
+    "garbage in the train": "Cleanliness",
+    "compartment is dirty": "Cleanliness",
+    "toilets are not clean": "Cleanliness",
+    "seat is broken": "Damage",
+    "window is broken": "Damage",
+    "facility is not working": "Damage",
+    "staff was rude": "Staff",
+    "poor service by staff": "Staff",
+    "ac not working": "Electrical Issues",
+    "fan is broken": "Electrical Issues",
+    "charging point not working": "Electrical Issues",
+    "light is not working": "Electrical Issues"
+}
 
-    return api_responses.get(complaint.lower(), "General Inquiry")
+return api_responses.get(complaint.lower(), "Others")
 
 # Fallback rule-based classification
 def classify_complaint_fallback(complaint):
     keywords = {
-        "late": "Punctuality",
-        "delay": "Punctuality",
-        "water": "Infrastructure",
-        "leak": "Infrastructure",
-        "fight": "Safety",
-        "accident": "Safety",
+        "garbage": "Cleanliness",
         "dirty": "Cleanliness",
-        "rude": "Staff Behavior",
-        "broken": "Maintenance",
-        "torn": "Maintenance"
+        "toilet": "Cleanliness",
+        "broken": "Damage",
+        "seat": "Damage",
+        "window": "Damage",
+        "facility": "Damage",
+        "staff": "Staff",
+        "rude": "Staff",
+        "service": "Staff",
+        "ac": "Electrical Issues",
+        "fan": "Electrical Issues",
+        "charging": "Electrical Issues",
+        "light": "Electrical Issues"
     }
 
     for key, category in keywords.items():
         if key in complaint.lower():
             return category
 
-    return "General Inquiry"
+    return "Others"
+
 
 # Define route for classification
 @app.post("/classify_complaint/")
