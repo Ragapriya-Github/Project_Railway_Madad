@@ -3,9 +3,10 @@ import random
 from fastapi import FastAPI
 from pydantic import BaseModel
 import google.generativeai as genai
+import os
 
 # Set up the Gemini API
-genai.configure(api_key="YOUR_API_KEY_HERE")
+genai.configure(api_key="AIzaSyDPaTFb1E9-3XFKdFEiZxIXw1ojsnDLPjw")
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -72,3 +73,6 @@ def classify_complaint(request: ComplaintRequest):
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Railway Complaint Classification API"}
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
